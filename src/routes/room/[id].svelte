@@ -9,4 +9,8 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Playing room: {$page.params.id}</title>
+</svelte:head>
+
 <Game />
