@@ -18,10 +18,9 @@ const joinRoom = (room: Room, user: string) => {
 	else if (!room.oPlayer) room.oPlayer = user;
 };
 
-export const webSocketServer = {
-	name: 'webSocketServer',
-	configureServer: (server) => {
-		const io = new Server(server.httpServer);
+// @ts-ignore
+export const injectSocketIO = (server) => {
+		const io = new Server(server);
 
 		io.on('connection', (socket) => {
 			socket.emit('userId', uid());
@@ -53,5 +52,12 @@ export const webSocketServer = {
 				io.to(room).emit('message', message);
 			});
 		});
+	}
+
+export const webSocketServer = {
+	name: 'webSocketServer',
+	// @ts-ignore
+	configureServer: (server) => {
+		injectSocketIO(server.httpServer);
 	}
 };
