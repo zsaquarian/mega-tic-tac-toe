@@ -3,6 +3,7 @@
 	import { socket } from '$lib/socket';
 	import { goto } from '$app/navigation';
 	import { userId } from '$lib/socket';
+	import { version } from '$lib/version';
 </script>
 
 <div class="text-center w-full h-screen flex">
@@ -49,4 +50,8 @@
 			}}>Create new game</button
 		>
 	</div>
+	<p class="absolute right-2 bottom-2">
+		<a href="https://github.com/zsaquarian/mega-tic-tac-toe">Source code</a><br />
+		v{version}
+	</p>
 </div>
