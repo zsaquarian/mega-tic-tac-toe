@@ -65,10 +65,10 @@
 </script>
 
 <div class="flex flex-col justify-center h-screen">
-	<div class="flex items-center justify-center mb-16">
-		<p class="text-6xl text-center">Mega Tic-tac-toe</p>
+	<div class="flex items-center justify-center mb-16 flex-col md:flex-row justify-center">
+		<p class="text-6xl text-center">Room: {$room.id}</p>
 		<button
-			class="text-4xl bg-red-500 p-6 m-8 rounded-full"
+			class="text-2xl bg-red-500 p-3 m-4 rounded-full"
 			on:click={() => {
 				socket.send('reset');
 			}}>Reset</button

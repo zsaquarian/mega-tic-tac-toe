@@ -5,17 +5,17 @@
 	import { userId } from '$lib/socket';
 </script>
 
-<div class="text-center w-screen h-screen flex">
-	<div class="m-auto">
-		<div class="flex border border-black rounded-lg bg-white">
+<div class="text-center w-full h-screen flex">
+	<div class="m-auto flex flex-col p-2">
+		<div class="flex rounded-lg bg-white flex-col md:flex-row text-4xl">
 			<input
-				class="text-4xl rounded-lg block p-2 text-center text-black"
+				class="rounded-lg block p-2 text-center text-black"
 				id="room"
 				placeholder="Enter your room ID"
 				bind:value={$room.id}
 			/>
 			<button
-				class="text-4xl m-2 rounded-lg py-2 px-8 block text-white bg-green-500 hover:bg-green-400 transition-colors"
+				class="rounded-lg py-2 md:px-8 m-2 block text-white bg-green-500 hover:bg-green-400 transition-colors"
 				on:click={async () => {
 					await new Promise((resolve) => {
 						socket.emit('join', $room.id, userId);
@@ -24,11 +24,11 @@
 					room.update((val) => ({ ...val, side: 'O' }));
 
 					goto(`/room/${$room.id}`);
-				}}>Join the room</button
+				}}>Join <span class="hidden lg:inline">the room</span></button
 			>
 		</div>
 		<div
-			class="border-b-2 border-white text-center my-4 justify-center"
+			class="border-b-2 border-white text-center my-4 justify-center hidden md:block"
 			style="line-height: 0.1rem;"
 		>
 			<span class="bg-slate-800 px-4">OR</span>
