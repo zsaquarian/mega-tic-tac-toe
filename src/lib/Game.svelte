@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { socket, userId } from './socket';
 	import { room } from './room';
+	import { getContext } from 'svelte';
+	import Popup from '$lib/ResultPopup.svelte'
+	import { ConfettiExplosion } from 'svelte-confetti-explosion';
 
 	export let grid: Cell[][] = [];
 	export let won: Cell[] = new Array(9).fill('');
@@ -32,6 +35,7 @@
 			turn = 'X';
 			placeToClick = -1;
 			won = new Array(9).fill('');
+			gameOver = false;
 		}
 	});
 
@@ -57,14 +61,24 @@
 		return false;
 	};
 
+	let gameOver = false;
+
 	$: if (checkWin(won)) {
-		console.log(turn, 'wins');
+		gameOver = true;
+		placeToClick = -1;
+		const { open } = getContext('simple-modal');
+	  open(Popup, { win: !myTurn });
 	}
 
 	$: myTurn = turn === $room.side;
 </script>
 
 <div class="flex flex-col justify-center h-screen">
+	{#if gameOver && !myTurn}
+		<div class="flex justify-center">
+			<ConfettiExplosion />
+		</div>
+	{/if}
 	<div class="flex items-center justify-center mb-16 flex-col md:flex-row justify-center">
 		<p class="text-6xl text-center">Room: {$room.id}</p>
 		<button
@@ -92,6 +106,7 @@
 						} ${cell === 'X' ? 'bg-blue-500' : cell === 'O' ? 'bg-teal-500' : ''}`}
 						on:click={() => {
 							if (!myTurn) return;
+							if (gameOver) return;
 							if ((placeToClick === -1 || placeToClick === i) && cell === '') {
 								socket.send(`changed:${i},${j},${turn}`);
 							}
@@ -104,5 +119,8 @@
 		{/each}
 	</div>
 
-	<p class="text-4xl text-center">{myTurn ? 'Your' : "Opponent's"} Turn</p>
+	{#if !gameOver}
+		<p class="text-4xl text-center">{myTurn ? 'Your' : "Opponent's"} Turn</p>
+	{/if}
 </div>
+

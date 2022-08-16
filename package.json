@@ -6,7 +6,6 @@
 		"build": "vite build",
 		"package": "svelte-kit package",
 		"preview": "vite preview",
-		"prepare": "svelte-kit sync",
 		"test": "playwright test",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -43,6 +42,8 @@
 		"express": "^4.18.1",
 		"short-unique-id": "^4.4.4",
 		"socket.io": "^4.5.1",
-		"socket.io-client": "^4.5.1"
+		"socket.io-client": "^4.5.1",
+		"svelte-confetti-explosion": "^0.2.0",
+		"svelte-simple-modal": "^1.4.1"
 	}
 }
