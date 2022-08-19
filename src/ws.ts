@@ -14,6 +14,7 @@ const uid = new ShortUniqueId({
 const activeRooms: Record<string, Room> = {};
 
 const joinRoom = (room: Room, user: string) => {
+	if (!room) return;
 	if (!room.xPlayer) room.xPlayer = user;
 	else if (!room.oPlayer) room.oPlayer = user;
 };

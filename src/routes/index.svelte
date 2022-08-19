@@ -18,6 +18,7 @@
 			<button
 				class="rounded-lg py-2 md:px-8 m-2 block text-white bg-green-500 hover:bg-green-400 transition-colors"
 				on:click={async () => {
+					if (!$room.id) return;
 					await new Promise((resolve) => {
 						socket.emit('join', $room.id, userId);
 						resolve(true);
